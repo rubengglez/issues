@@ -22,6 +22,6 @@ defmodule Issues.GithubIssues do
   defp getClientHttp(headers \\ [], options \\ []),
     do: &HTTPoison.get(&1, headers, options)
 
-  defp processResponse({:ok, %{status_code: 200, body: body}}), do: {:ok, body}
-  defp processResponse({:ok, %{status_code: ___, body: body}}), do: {:error, body}
+  defp processResponse({:ok, %{status_code: 200, body: body}}), do: {:ok, Poison.decode(body)}
+  defp processResponse({:ok, %{status_code: ___, body: body}}), do: {:error, Poison.decode(body)}
 end
