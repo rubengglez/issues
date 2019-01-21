@@ -2,8 +2,10 @@ defmodule Issues.GithubIssues do
   @moduledoc """
   Used to request data to github API
   """
-  @urlGithubApi "https://api.github.com/repos/"
-  @urlResource "issues"
+
+  @githubApi Application.get_env(:issues, :githubUrl)
+  @resourceApi "repos/"
+  @featureResource "issues"
   @acceptHeader [Accept: "application/vnd.github.v3.raw+json"]
 
   # @todo make a mock to test this
@@ -16,7 +18,7 @@ defmodule Issues.GithubIssues do
     |> processResponse
   end
 
-  defp getUri(user, project), do: @urlGithubApi <> "#{user}/#{project}/" <> @urlResource
+  defp getUri(user, project), do: @githubApi <> @resourceApi <> "#{user}/#{project}/" <> @featureResource
   defp getHeaders(), do: @acceptHeader
 
   defp getClientHttp(headers \\ [], options \\ []),
