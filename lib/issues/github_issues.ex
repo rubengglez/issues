@@ -18,7 +18,9 @@ defmodule Issues.GithubIssues do
     |> processResponse
   end
 
-  defp getUri(user, project), do: @githubApi <> @resourceApi <> "#{user}/#{project}/" <> @featureResource
+  defp getUri(user, project),
+    do: @githubApi <> @resourceApi <> "#{user}/#{project}/" <> @featureResource
+
   defp getHeaders(), do: @acceptHeader
 
   defp getClientHttp(headers \\ [], options \\ []),
