@@ -7,6 +7,7 @@ defmodule Issues.MixProject do
       version: "0.1.0",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
+      escript: escript_config,
       deps: deps()
     ]
   end
@@ -28,4 +29,10 @@ defmodule Issues.MixProject do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
     ]
   end
+
+  # Specify who contains the main function
+  defp escript_config do
+    [ main_module: Issues.CLI]
+  end
+
 end
