@@ -5,10 +5,11 @@ defmodule Issues.CLI do
   the various functions that end up generating a
   table of the last _n_ issues in a github project
   """
-  def run(argv) do
+  def main(argv) do
     argv
     |> parse_args
     |> process
+    |> IO.inspect
   end
 
   @doc """
@@ -46,9 +47,10 @@ defmodule Issues.CLI do
 
   defp extractDataFromTuple({_, data}), do: data
 
-  def process({user, project, _count}) do
+  def process({user, project, count}) do
     Issues.GithubIssues.fetch(user, project)
     |> extractDataFromTuple
     |> Issues.Format.sort()
+    |> Enum.take(count)
   end
 end
