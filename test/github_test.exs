@@ -4,8 +4,9 @@ defmodule GithubTest do
   import Issues.GithubIssues, only: [fetch: 2]
 
   test "make an http request" do
-    {result, _} = fetch("rubengglez", "rubengglez.github.io")
+    {result, listData} = fetch("rubengglez", "rubengglez.github.io")
     assert result == :ok
+    assert is_list(listData)
   end
 
   test "when trying to get a resource that doesn't exist, an error should be returned" do
