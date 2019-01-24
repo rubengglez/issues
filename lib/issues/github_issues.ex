@@ -3,6 +3,8 @@ defmodule Issues.GithubIssues do
   Used to request data to github API
   """
 
+  require Logger
+
   @githubApi Application.get_env(:issues, :githubUrl)
   @resourceApi "repos/"
   @featureResource "issues"
@@ -10,6 +12,7 @@ defmodule Issues.GithubIssues do
 
   # @todo make a mock to test this
   def fetch(user, project) do
+    Logger.info "Fetching user #{user}'s project #{project}"
     uri = getUri(user, project)
     headers = getHeaders()
     client = getClientHttp(headers)
@@ -28,6 +31,7 @@ defmodule Issues.GithubIssues do
 
   defp processResponse({:ok, %{status_code: 200, body: body}}) do
     {_, data} = Poison.decode(body)
+    Logger.debug "Data retrieved #{body}"
     {:ok, data}
   end
 
